@@ -1,13 +1,40 @@
 #encoding: utf-8
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from futman.forms import *
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, StreamingHttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.http import require_http_methods
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
+#@login_required()
+def home(request):
+    return render_to_response('home.html', context_instance=RequestContext(request))
+
+
 def welcome(request):
-    return render_to_response('welcome.html', context_instance=RequestContext(request))
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        account = authenticate(username=username, password=password)
+        if account is not None:
+            print('account is not none')
+            if account.is_active:
+                print('account is active')
+                login(request, account)
+                return HttpResponseRedirect('/home')
+            else:  # non active account
+                print('account is not active')
+                return HttpResponseRedirect('/')
+        else:
+            # login incorrecto
+            print('incorret login')
+            return render_to_response('welcome.html', {'error': True}, context_instance=RequestContext(request))
+
+    return render_to_response('welcome.html', {'error': False}, context_instance=RequestContext(request))
 
 
 def signup(request):
