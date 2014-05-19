@@ -57,3 +57,20 @@ body {
 .padding-left-5 {
     padding-left: 5%;
 }
+
+.player{
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+}
+
+.goalkeeper{
+    display: inline-block;
+
+    margin-left: 150%;
+    margin-right: 50%;
+}
+
+.line{
+    height: 150px;
+}

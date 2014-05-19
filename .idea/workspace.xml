@@ -23,20 +23,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="welcome.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/welcome.html">
+      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/futman/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="26" selection-start="1870" selection-end="1870" vertical-scroll-proportion="-12.5" vertical-offset="375" max-vertical-offset="1335">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="custom.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/custom.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
-              <folding />
+            <state line="35" column="4" selection-start="828" selection-end="828" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="1200">
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -44,7 +37,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/futman/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="68" selection-start="1382" selection-end="1382" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1050">
+            <state line="34" column="68" selection-start="1382" selection-end="1382" vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1050">
               <folding>
                 <element signature="e#17#83#0" expanded="true" />
               </folding>
@@ -55,7 +48,45 @@
       <file leaf-file-name="home.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="4" selection-start="52" selection-end="52" vertical-scroll-proportion="0.05940594" vertical-offset="0" max-vertical-offset="505">
+            <state line="13" column="66" selection-start="529" selection-end="535" vertical-scroll-proportion="-0.23762377" vertical-offset="315" max-vertical-offset="1155">
+              <folding>
+                <element signature="e#304#392#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/custom.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="69" column="19" selection-start="784" selection-end="784" vertical-scroll-proportion="0.0" vertical-offset="686" max-vertical-offset="1215">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/futbolmanager/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="0" selection-start="1092" selection-end="1092" vertical-scroll-proportion="0.0" vertical-offset="336" max-vertical-offset="2940">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="master_in.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/master_in.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="12" selection-start="40" selection-end="40" vertical-scroll-proportion="12.083333" vertical-offset="305" max-vertical-offset="810">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="master.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/master.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="0" selection-start="908" selection-end="908" vertical-scroll-proportion="-11.666667" vertical-offset="65" max-vertical-offset="660">
               <folding />
             </state>
           </provider>
@@ -64,16 +95,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../Universidad/ISPP/entorno/ispp8/ispp8/plan/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="297" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6450">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/futbolmanager/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="51" selection-start="422" selection-end="422" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+            <state line="9" column="0" selection-start="297" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="6450">
               <folding />
             </state>
           </provider>
@@ -92,17 +114,18 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/futman/admin.py" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/futbolmanager/settings.py" />
         <option value="$PROJECT_DIR$/futbolmanager/forms.py" />
         <option value="$PROJECT_DIR$/futman/forms.py" />
         <option value="$PROJECT_DIR$/templates/signup.html" />
-        <option value="$PROJECT_DIR$/futman/models.py" />
-        <option value="$PROJECT_DIR$/templates/master.html" />
-        <option value="$PROJECT_DIR$/static/css/custom.css" />
         <option value="$PROJECT_DIR$/futbolmanager/urls.py" />
         <option value="$PROJECT_DIR$/static/js/custom.js" />
         <option value="$PROJECT_DIR$/futman/views.py" />
         <option value="$PROJECT_DIR$/templates/welcome.html" />
+        <option value="$PROJECT_DIR$/templates/master.html" />
+        <option value="$PROJECT_DIR$/templates/master_in.html" />
+        <option value="$PROJECT_DIR$/futbolmanager/settings.py" />
+        <option value="$PROJECT_DIR$/futman/models.py" />
+        <option value="$PROJECT_DIR$/static/css/custom.css" />
         <option value="$PROJECT_DIR$/templates/home.html" />
       </list>
     </option>
@@ -167,6 +190,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="futbolmanager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="futbolmanager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -185,7 +222,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -484,7 +521,14 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/futman/models.py</url>
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/futman/models.py">
@@ -645,13 +689,6 @@
         <state line="12" column="0" selection-start="319" selection-end="319" vertical-scroll-proportion="0.23715416" vertical-offset="0" max-vertical-offset="759" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/futbolmanager/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="24" selection-start="2237" selection-end="2237" vertical-scroll-proportion="0.0" vertical-offset="921" max-vertical-offset="2925">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Universidad/ISPP/openshift/plan/templates/master_page_nonlogged.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="16" selection-start="266" selection-end="826" vertical-scroll-proportion="-11.25" vertical-offset="0" max-vertical-offset="3060" />
@@ -679,13 +716,6 @@
         <state line="384" column="4" selection-start="13951" selection-end="13974" vertical-scroll-proportion="0.9269311" vertical-offset="5016" max-vertical-offset="7695" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/futman/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="24" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="1170">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/signup.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="35" selection-start="888" selection-end="888" vertical-scroll-proportion="-11.25" vertical-offset="0" max-vertical-offset="570">
@@ -710,31 +740,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/master.html">
+    <entry file="file://$PROJECT_DIR$/futbolmanager/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="104" selection-start="671" selection-end="671" vertical-scroll-proportion="0.41584158" vertical-offset="0" max-vertical-offset="505">
+        <state line="11" column="51" selection-start="422" selection-end="422" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/custom.css">
+    <entry file="file://$PROJECT_DIR$/templates/welcome.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="1" selection-start="521" selection-end="521" vertical-scroll-proportion="0.6238185" vertical-offset="360" max-vertical-offset="960">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Universidad/ISPP/entorno/ispp8/ispp8/plan/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="297" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6450">
+        <state line="45" column="26" selection-start="1870" selection-end="1870" vertical-scroll-proportion="0.5940594" vertical-offset="375" max-vertical-offset="1335">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/custom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
+        <state line="3" column="0" selection-start="59" selection-end="59" vertical-scroll-proportion="0.028355388" vertical-offset="0" max-vertical-offset="529">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/futbolmanager/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1092" selection-end="1092" vertical-scroll-proportion="0.0" vertical-offset="336" max-vertical-offset="2940">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/futman/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="4" selection-start="828" selection-end="828" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="1200">
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -747,24 +786,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/futbolmanager/urls.py">
+    <entry file="file://$PROJECT_DIR$/templates/master_in.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="51" selection-start="422" selection-end="422" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+        <state line="1" column="12" selection-start="40" selection-end="40" vertical-scroll-proportion="12.083333" vertical-offset="305" max-vertical-offset="810">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/welcome.html">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/pycharm.jar!/resources/html5-schema/common.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="26" selection-start="1870" selection-end="1870" vertical-scroll-proportion="-12.5" vertical-offset="375" max-vertical-offset="1335">
+        <state line="132" column="23" selection-start="3392" selection-end="3392" vertical-scroll-proportion="0.3327032" vertical-offset="1804" max-vertical-offset="7260">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/master.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="908" selection-end="908" vertical-scroll-proportion="-11.666667" vertical-offset="65" max-vertical-offset="660">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Universidad/ISPP/entorno/ispp8/ispp8/plan/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="297" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6450">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="19" selection-start="784" selection-end="784" vertical-scroll-proportion="0.0" vertical-offset="686" max-vertical-offset="1215">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="4" selection-start="52" selection-end="52" vertical-scroll-proportion="0.05940594" vertical-offset="0" max-vertical-offset="505">
-          <folding />
+        <state line="13" column="66" selection-start="529" selection-end="535" vertical-scroll-proportion="-0.23762377" vertical-offset="315" max-vertical-offset="1155">
+          <folding>
+            <element signature="e#304#392#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

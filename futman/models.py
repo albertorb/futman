@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 
@@ -33,6 +34,7 @@ class Player(models.Model):
 class Manager(models.Model):
     user = models.OneToOneField(User)
     image = models.ImageField(upload_to='images/profile', blank=True, null=False)
+
 
     def __unicode__(self):
         return self.user.get_username()

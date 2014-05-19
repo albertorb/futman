@@ -1,4 +1,72 @@
-{% extends 'master.html' %}
-{% block content %}
-    
+{% extends 'master_in.html' %}
+{% block home %}
+
+    <div class="row container center-block">
+        <div class="col-md-4">
+            <!-- Default panel contents -->
+            <div class="">Lineup</div>
+            <!-- Table -->
+            <table class="table table-responsive"
+                   style="background-image: url('{{ STATIC_URL }}img/pitch.jpeg'); background-size: cover;">
+                <tr id="strikers" class="">
+
+                    <td></td>
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+
+                <tr id="midfielders1" class="">
+
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+
+                </tr>
+
+                <tr id="midfielders2" class="">
+
+                    <td></td>
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td></td>
+
+                </tr>
+
+                <tr id="defense1" class="">
+
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+
+                </tr>
+
+                <tr id="defense2" class="">
+
+                    <td></td>
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td></td>
+
+                </tr>
+
+                <tr id="goalkeeper" class="line">
+
+
+                    <td class="goalkeeper"><a class="player"><img class="img-circle"
+                                                                  src="{{ STATIC_URL }}img/denilson.jpeg"></a>
+                    </td>
+
+
+                </tr>
+
+            </table>
+        </div>
+    </div>
 {% endblock %}
