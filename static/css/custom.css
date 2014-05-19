@@ -1,35 +1,59 @@
-body{
+body {
     background-color: #eee;
 }
 
-.padding-left-15{
+.padding-left-15 {
     padding-left: 15%;
 }
 
-.padding-right-15{
+.padding-right-15 {
     padding-right: 15%;
 }
 
-.padding-top-15{
+.padding-right-5 {
+    padding-right: 5%;
+}
+
+.padding-right-10 {
+    padding-right: 10%;
+}
+
+.padding-top-15 {
     padding-top: 15%;
 }
 
-.padding-top-10{
+.padding-top-10 {
     padding-top: 10%;
 }
 
-.padding-bottom-15{
+.padding-top-5 {
+    padding-top: 5%;
+}
+
+.padding-top-20 {
+    padding-top: 20%;
+}
+
+.padding-bottom-15 {
     padding-bottom: 15%;
 }
 
-.padding-15{
+.padding-bottom-5 {
+    padding-bottom: 5%;
+}
+
+.padding-10 {
+    padding: 10%;
+}
+
+.padding-15 {
     padding: 15%;
 }
 
-.padding-20{
+.padding-20 {
     padding: 20%;
 }
 
-.padding-left-5{
+.padding-left-5 {
     padding-left: 5%;
 }
