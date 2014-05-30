@@ -58,19 +58,23 @@ body {
     padding-left: 5%;
 }
 
-.player{
+.player {
     display: inline-block;
     position: relative;
     vertical-align: top;
 }
 
-.goalkeeper{
+.goalkeeper {
     display: inline-block;
 
-    margin-left: 150%;
+    margin-left: 160%;
     margin-right: 50%;
 }
 
-.line{
+.line {
     height: 150px;
+}
+
+.borderless > tbody > tr > td {
+    border: none;
 }

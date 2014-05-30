@@ -2,16 +2,43 @@
 {% block home %}
 
     <div class="row container center-block">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <!-- Default panel contents -->
             <div class="">Lineup</div>
             <!-- Table -->
-            <table class="table table-responsive"
-                   style="background-image: url('{{ STATIC_URL }}img/pitch.jpeg'); background-size: cover;">
-                <tr id="strikers" class="">
+            <table class="table borderless "
+                   style="background-image: url('{{ STATIC_URL }}img/pitch.png'); background-size: cover; width:500px; height:500px;">
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr id="strikers">
 
                     <td></td>
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
+                    <td class="text-center "><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
                     <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
                     <td></td>
 
@@ -56,11 +83,12 @@
 
                 </tr>
 
-                <tr id="goalkeeper" class="line">
+
+                <tr id="goalkeeper" class="">
 
 
-                    <td class="goalkeeper"><a class="player"><img class="img-circle"
-                                                                  src="{{ STATIC_URL }}img/denilson.jpeg"></a>
+                    <td class="goalkeeper"><img class="img-circle"
+                                      src="{{ STATIC_URL }}img/denilson.jpeg">
                     </td>
 
 
@@ -68,5 +96,18 @@
 
             </table>
         </div>
+    <div class="col-md-4">
+        <div id="playerList">
+            <table class="table">
+                <tr>
+                    <td><h4>Name</h4></td>
+                    <td><h4>Position</h4></td>
+                    <td><h4>Points</h4></td>
+                    <td><h4>Value</h4></td>
+                </tr>
+            </table>
+        </div>
     </div>
+    </div>
+
 {% endblock %}
