@@ -1,6 +1,6 @@
 {% extends 'master.html' %}
 {% block top %}
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top background-success" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -15,11 +15,14 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
+
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Lineup</a></li>
-                    <li><a href="#">League</a></li>
-                    <li><a href="/valoration">Live points</a></li>
+                    <li {% if request.path == '/home/' %}class="active"{% endif %}><a href="/home">Home</a></li>
+                    <li {% if request.path == '/lineup/' %}class="active"{% endif %}><a href="/lineup">Lineup</a></li>
+                    <li {% if request.path == '/league/' %}class="active"{% endif %}><a href="/league">League</a></li>
+                    <li {% if request.path == '/valoration/' %}class="active"{% endif %}><a href="/valoration">Live
+                        points</a></li>
                 </ul>
                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group">

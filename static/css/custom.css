@@ -6,6 +6,11 @@ body {
     padding-left: 15%;
 }
 
+.padding-left-25 {
+    padding-left: 25%;
+}
+
+
 .padding-right-15 {
     padding-right: 15%;
 }
@@ -77,4 +82,30 @@ body {
 
 .borderless > tbody > tr > td {
     border: none;
+}
+
+.background-success {
+    background-color: #5cb85c;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.activecustom {
+    color: #00;
+}
+
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+.text-green{
+    color:#01DF01;
 }

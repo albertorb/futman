@@ -1,0 +1,15 @@
+Cython==0.20.1
+Django==1.6.2
+Pillow==2.4.0
+PyMySQL==0.6.2
+Whoosh==2.6.0
+beautifulsoup4==4.3.2
+crawler==0.1.2
+creepy==0.1.1
+index==0.2
+mysql-connector-python==1.1.6
+psycopg2==2.5.3
+pytz==2014.2
+sorl-thumbnail==11.12
+urllib3==1.8.2
+virtualenv==1.11.4

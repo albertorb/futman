@@ -1,0 +1,34 @@
+{% extends 'master_in.html' %}
+{% block home %}
+    <div class="row container padding-left-15">
+        <div class="page-header">
+            <h1>New league</h1>
+        </div>
+
+        <div class="panel-heading text-primary h2">League info</div>
+        <div class="col-md-8  panel panel-default">
+            <form role="form" method="post" class="panel-body" action="/create_league/">{% csrf_token %}
+                <div class="form-group">
+                    <label for="username">League Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter league name">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Administrator</label>
+                    <fieldset disabled>
+                        <div class="form-control disabled">
+                            <p class="form-control-static">{{ request.user.username }}</p>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Nombre de tu club</label>
+                    <input class="form-control" type="text" placeholder="Introduzca nombre del club"
+                           name="tname">
+                </div>
+                <button type="submit" class="btn btn-default text-green">Create league</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

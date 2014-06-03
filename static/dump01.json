@@ -1,0 +1,103 @@
+[
+
+    {
+        "model": "futman.team",
+        "pk": 1,
+        "fields": {
+            "logo": "images/logos/1_1.jpeg",
+            "name": "Real Betis Balompie"
+        }
+    },
+    {
+        "model": "futman.team",
+        "pk": 2,
+        "fields": {
+            "logo": "images/logos/2_1.jpeg",
+            "name": "Sevilla FC"
+        }
+    },
+    {
+        "model": "futman.player",
+        "pk": 1,
+        "fields": {
+            "image": "images/players/1_3.jpeg",
+            "position": "s",
+            "value": 1000000.0,
+            "totalPunctuation": 0,
+            "surname": "Molina",
+            "name": "Jorge"
+        }
+    },
+    {
+        "model": "futman.player",
+        "pk": 2,
+        "fields": {
+            "image": "images/players/2_3.jpg",
+            "position": "g",
+            "value": 5000000.0,
+            "totalPunctuation": 0,
+            "surname": "Ad\u00e1n",
+            "name": "Antonio"
+        }
+    },
+    {
+        "model": "futman.player",
+        "pk": 3,
+        "fields": {
+            "image": "images/players/3_1.jpg",
+            "position": "d",
+            "value": 500000.0,
+            "totalPunctuation": 0,
+            "surname": "Mart\u00ednez",
+            "name": "Alex"
+        }
+    },
+    {
+        "model": "futman.player",
+        "pk": 4,
+        "fields": {
+            "image": "images/players/4_2.jpg",
+            "position": "m",
+            "value": 1500000.0,
+            "totalPunctuation": 0,
+            "surname": "Sevilla",
+            "name": "Salva"
+        }
+    },
+    {
+        "model": "futman.player",
+        "pk": 5,
+        "fields": {
+            "image": "images/players/5_1.jpg",
+            "position": "m",
+            "value": 10000000.0,
+            "totalPunctuation": 0,
+            "surname": "Mbia",
+            "name": "Titi"
+        }
+    },
+    {
+        "model": "futman.player",
+        "pk": 6,
+        "fields": {
+            "image": "images/players/6_1.jpeg",
+            "position": "m",
+            "value": 15000000.0,
+            "totalPunctuation": 0,
+            "surname": "Rakitic",
+            "name": "Ivan"
+        }
+    },
+    {
+        "model": "futman.player",
+        "pk": 7,
+        "fields": {
+            "image": "images/players/8_1.jpeg",
+            "position": "d",
+            "value": 4000000.0,
+            "totalPunctuation": 0,
+            "surname": "Fazio",
+            "name": "Federico"
+        }
+    }
+]

@@ -1,0 +1,18 @@
+{% extends 'master_in.html' %}
+{% block home %}
+
+    <div class="row container padding-left-15">
+        <div class="page-header">
+            <h1>League settings</h1>
+        </div>
+
+        <div class="panel-heading text-primary h2"></div>
+        <div class="col-md-8  panel panel-default">
+            <form role="form" method="post" class="panel-body">{% csrf_token %}
+
+                <button type="submit" class="btn btn-default text-green">Save</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

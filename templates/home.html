@@ -1,113 +1,137 @@
 {% extends 'master_in.html' %}
 {% block home %}
 
-    <div class="row container center-block">
-        <div class="col-md-6">
-            <!-- Default panel contents -->
-            <div class="">Lineup</div>
-            <!-- Table -->
-            <table class="table borderless "
-                   style="background-image: url('{{ STATIC_URL }}img/pitch.png'); background-size: cover; width:500px; height:500px;">
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr id="strikers">
+    {% if hasjoin %}
+        <div class="row container center-block">
+            <div class="col-xs-10 center padding-top-10 padding-left-15">
+                <div class="alert alert-success text-center h4">
+                    <p>Tu solicitud para ingresar a la liga ha sido enviada. Ahora debes esperar a que el administrador
+                        te
+                        acepte para poder empezar</p>
 
-                    <td></td>
-                    <td class="text-center "><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                    <td></td>
-
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-
-                <tr id="midfielders1" class="">
-
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-
-                </tr>
-
-                <tr id="midfielders2" class="">
-
-                    <td></td>
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                    <td></td>
-
-                </tr>
-
-                <tr id="defense1" class="">
-
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-
-                </tr>
-
-                <tr id="defense2" class="">
-
-                    <td></td>
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                    <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                    <td></td>
-
-                </tr>
-
-
-                <tr id="goalkeeper" class="">
-
-
-                    <td class="goalkeeper"><img class="img-circle"
-                                      src="{{ STATIC_URL }}img/denilson.jpeg">
-                    </td>
-
-
-                </tr>
-
-            </table>
+                    <p> Mientras puedes crear tu equipo</p>
+                </div>
+            </div>
         </div>
-    <div class="col-md-4">
-        <div id="playerList">
-            <table class="table">
-                <tr>
-                    <td><h4>Name</h4></td>
-                    <td><h4>Position</h4></td>
-                    <td><h4>Points</h4></td>
-                    <td><h4>Value</h4></td>
-                </tr>
-            </table>
+
+        <div class="row container center-block">
+            <div class=" col-md-offset-3 col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-body panel-success">
+                        <div class="help-block text-center">
+                            <strong>Dale un nombre a tu club para que todos lo reconozcan!
+                            </strong>
+                        </div>
+                        <form action="/create_club/" method="post">{% csrf_token %}
+                            <div class="form-group">
+                                <label for="image">Nombre del club</label>
+                                <input class="form-control" type="text" placeholder="Introduzca nombre del club"
+                                       name="tname">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-default text-green">Crear club</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
+    {% endif %}
+
+    {% if not club and not hasjoin %}
+        <div class="row container center-block padding-top-10">
+            <div class=" col-md-offset-3 col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-body panel-success">
+                        <div class="help-block text-center">
+                            <strong>A que esperas!
+                                Ingresa en una liga con tus amigos!
+                                Introduce el nombre del administrador de la liga en la que deseas participar
+                            </strong>
+                        </div>
+                        <form action="/join/" method="post">{% csrf_token %}
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Nombre del administrador"
+                                       name="lgname">
+                                <span class="input-group-btn">
+                                     <button type="submit" class="btn btn-default text-green"><span
+                                             class="fa-search fa"></span></button>
+                            </div>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row container center-block">
+            <div class=" col-md-offset-3 col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-body panel-success">
+                        <div class="help-block text-center">
+                            <strong>O si lo prefieres, <a href="/create_league/">crea tu propia liga</a> !
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+    {% if isadmin %}
+        <div class="row container center-block">
+            <div class=" col-md-offset-4 col-md-4">
+                <div class="panel panel-success">
+                    <div class="panel-body panel-success">
+                        <div class="help-block text-center">
+                            <p>
+                                <small>Eres administrador de <strong>{{ isadmin.name }}</strong></small>
+                            </p
+                            <p><strong><a href="/create_league/"><span class="fa fa-gear">Editar liga</span></a></p>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+    {% if club %}
+
+        <div class="row container center-block">
+            <div class="col-md-4">
+                <h3>{{ club.name }}</h3>
+
+                <div class="panel panel-success">
+                    <div class="panel-body panel-success">
+                        <div class="help-block text-center">
+                            <small>Tienes <strong>{{ ranking.punctuation }}</strong> puntos</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="col-md-4">
+                <h3>Ofertas de traspasos</h3>
+
+                <div class="panel panel-success">
+                    <div class="panel-body panel-success">
+                        <div class="help-block text-center">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    {% endif %}
+
+
 
 {% endblock %}
