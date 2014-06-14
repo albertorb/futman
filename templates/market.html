@@ -1,0 +1,78 @@
+{% extends 'master_in.html' %}
+{% block home %}
+    <div class="row container center-block">
+    <p class="h2">Mercado de traspasos</p>
+    {% for p in players %}
+        <div class="row container">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-body panel-success">
+                    <div class="row">
+                        <div class="col-xs-2 ">
+                            <a href="/player/{{ p.player.name }}"> <img class="img-rounded img-market"
+                                                                        src="{{ MEDIA_URL }}{{ p.player.image }}"></a>
+                        </div>
+                        <div class="col-xs-3 col-xs-offset-2">
+                            <p>{{ p.player.name }} {{ p.player.surname }}</p>
+                        </div>
+                        <div class="col-xs-2 col-xs-offset-2">
+                            <a href="/profile/{{ p.club }}" class="small text-warning">{{ p.club }}</a>
+                        </div>
+                        <div class="col-xs-4 col-xs-offset-2">
+                            <p class="text-info">{{ p.player.value }}€</p>
+                        </div>
+                        <div class="col-xs-2 col-xs-offset-1">
+                            {% if player in alreadybid.player.all %}
+                                 <a class="btn btn-xs btn-default text-danger" data-toggle="modal"
+                               data-target=".bs-example-modal-sm" href="" onclick="bid('{{ p.player.id }}', '{{ p.club.manager.id }}')">cancelar puja</a>
+
+                                {% else %}
+                                 <a class="btn btn-xs btn-default text-green" data-toggle="modal"
+                               data-target=".bs-example-modal-sm" href="" onclick="bid('{{ p.player.id }}', '{{ p.club.manager.id }}')">Pujar</a>
+                                {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+    <!-- Small modal -->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm ">
+            <div class="modal-content ">
+                <div class="form row container center-block">
+                    <form class="form" action="/do_bid/" method="post">{% csrf_token %}
+                        <div class="col-xs-3 ">
+                            <div class="form-group padding-top-5">
+                                <label>Cantidad a pujar</label>
+                                <input class="form-control" type="number" placeholder="Introduzca cantidad"
+                                       name="amnt">
+                                <input id="playerhide" class="hidden" type="text" value=" " name="playerhide">
+                                <input id="sellerhide" class="hidden" type="text" value=" " name="sellerhide">
+                            </div>
+                            <div class="padding-bottom-5">
+
+                                <button type="submit" class="btn btn-sm btn-default text-green">Pujar</button>
+                                <text class="text-muted small">Pulsa esc para cancelar</text>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function bid(playr, seller) {
+            $( "#playerhide").val(playr);
+            $( "#sellerhide").val(seller);
+
+        }
+    </script>
+
+{% endblock %}
