@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from futbolmanager import settings
 
 from django.contrib import admin
 admin.autodiscover()
@@ -18,7 +19,16 @@ urlpatterns = patterns('',
     url(r'^create_league/$', 'futman.views.create_league', name='create_league'),
     url(r'^create_club/$', 'futman.views.create_club', name='create_club'),
     url(r'^league_settings/$', 'futman.views.league_settings', name='league_settings'),
+    url(r'^market/$', 'futman.views.market', name='market'),
     url(r'^do_request/$', 'futman.views.send_request_join', name='send_request_join'),
+    url(r'^do_bid/$', 'futman.views.dobid', name='do_bid'),
+    url(r'^check_requests/$', 'futman.views.check_join', name='check_requests'),
 
     url(r'^admin/', include(admin.site.urls)),
 )
+
+if settings.DEBUG:
+    # static files (images, css, javascript, etc.)
+    urlpatterns += patterns('',
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT}))

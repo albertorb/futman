@@ -1,0 +1,159 @@
+[
+
+    {
+        "model": "futman.team",
+        "fields": {
+            "name": "Real Betis Balompie",
+            "logo": "images/teams/1.jpeg"
+        },
+        "pk": 1
+    },
+    {
+        "model": "futman.team",
+        "fields": {
+            "name": "Sevilla FC",
+            "logo": "images/teams/2.jpeg"
+        },
+        "pk": 2
+    },
+    {
+        "model": "futman.player",
+        "fields": {
+            "image": "images/players/1.jpeg",
+            "surname": "Molina",
+            "position": "s",
+            "name": "Jorge",
+            "totalPunctuation": 0.0,
+            "value": 1000000.0
+        },
+        "pk": 1
+    },
+    {
+        "model": "futman.player",
+        "fields": {
+            "image": "images/players/2.jpg",
+            "surname": "Ad\u00e1n",
+            "position": "g",
+            "name": "Antonio",
+            "totalPunctuation": 0.0,
+            "value": 5000000.0
+        },
+        "pk": 2
+    },
+    {
+        "model": "futman.player",
+        "fields": {
+            "image": "images/players/3.jpg",
+            "surname": "Mart\u00ednez",
+            "position": "d",
+            "name": "Alex",
+            "totalPunctuation": 0.0,
+            "value": 500000.0
+        },
+        "pk": 3
+    },
+    {
+        "model": "futman.player",
+        "fields": {
+            "image": "images/players/4.jpg",
+            "surname": "Sevilla",
+            "position": "m",
+            "name": "Salva",
+            "totalPunctuation": 0.0,
+            "value": 1500000.0
+        },
+        "pk": 4
+    },
+    {
+        "model": "futman.player",
+        "fields": {
+            "image": "images/players/5.jpg",
+            "surname": "Mbia",
+            "position": "m",
+            "name": "Titi",
+            "totalPunctuation": 0.0,
+            "value": 10000000.0
+        },
+        "pk": 5
+    },
+    {
+        "model": "futman.player",
+        "fields": {
+            "image": "images/players/6.jpeg",
+            "surname": "Rakitic",
+            "position": "m",
+            "name": "Ivan",
+            "totalPunctuation": 0.0,
+            "value": 15000000.0
+        },
+        "pk": 6
+    },
+    {
+        "model": "futman.player",
+        "fields": {
+            "image": "images/players/8.jpeg",
+            "surname": "Fazio",
+            "position": "d",
+            "name": "Federico",
+            "totalPunctuation": 0.0,
+            "value": 4000000.0
+        },
+        "pk": 7
+    },
+    {
+        "model": "futman.playson",
+        "fields": {
+            "team": 1,
+            "player": 1
+        },
+        "pk": 1
+    },
+    {
+        "model": "futman.playson",
+        "fields": {
+            "team": 1,
+            "player": 2
+        },
+        "pk": 2
+    },
+    {
+        "model": "futman.playson",
+        "fields": {
+            "team": 1,
+            "player": 3
+        },
+        "pk": 3
+    },
+    {
+        "model": "futman.playson",
+        "fields": {
+            "team": 1,
+            "player": 4
+        },
+        "pk": 4
+    },
+    {
+        "model": "futman.playson",
+        "fields": {
+            "team": 2,
+            "player": 5
+        },
+        "pk": 5
+    },
+    {
+        "model": "futman.playson",
+        "fields": {
+            "team": 2,
+            "player": 6
+        },
+        "pk": 6
+    },
+    {
+        "model": "futman.playson",
+        "fields": {
+            "team": 2,
+            "player": 7
+        },
+        "pk": 7
+    }
+]

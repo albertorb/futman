@@ -10,7 +10,6 @@ body {
     padding-left: 25%;
 }
 
-
 .padding-right-15 {
     padding-right: 15%;
 }
@@ -96,7 +95,6 @@ body {
     color: #00;
 }
 
-
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     color: #000000;
     background-color: #ffffff;
@@ -106,6 +104,25 @@ body {
     color: #ffffff;
 }
 
-.text-green{
-    color:#01DF01;
+.text-green {
+    color: #01DF01;
+}
+
+.text-red {
+    color: red;
+}
+
+.img-market {
+    width: 80px;
+    height: 80px;
+}
+
+.logo-market {
+    width: 40px;
+    height: 30px;
+}
+
+.img-profile {
+    widht: 40px;
+    height: 40px;
 }

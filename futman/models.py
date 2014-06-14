@@ -47,6 +47,7 @@ class Manager(models.Model):
 class Club(models.Model):
     name = models.CharField(max_length=100)
     manager = models.OneToOneField(Manager)
+    budget = models.FloatField()
 
     def __unicode__(self):
         return self.name
@@ -100,7 +101,6 @@ class ranking(models.Model):
     club = models.ForeignKey(Club)
     punctuation = models.FloatField()
     division = models.ForeignKey(Division, related_name='division_ranking')
-
 
 
 class Admin(models.Model):

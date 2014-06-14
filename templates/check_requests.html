@@ -1,0 +1,26 @@
+{% extends 'master_in.html' %}
+{% block home %}
+    <div class="row container center-block">
+        {% for req in requests %}
+            <div class="col-md-3">
+                <div class="panel">
+                    <div class="panel-body ">
+                        <div class="col-xs-12 text-center">
+
+                                <p class="">{{ req.manager }}</p>
+
+
+
+                                <button class="btn btn-default text-green btn-xs">Aceptar</button>
+                                <button class="btn btn-default text-red btn-xs">Rechazar</button>
+
+                            
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

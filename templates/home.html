@@ -1,7 +1,7 @@
 {% extends 'master_in.html' %}
 {% block home %}
 
-    {% if hasjoin %}
+    {% if hasjoin and not club %}
         <div class="row container center-block">
             <div class="col-xs-10 center padding-top-10 padding-left-15">
                 <div class="alert alert-success text-center h4">
@@ -89,7 +89,8 @@
                             <p>
                                 <small>Eres administrador de <strong>{{ isadmin.name }}</strong></small>
                             </p
-                            <p><strong><a href="/create_league/"><span class="fa fa-gear">Editar liga</span></a></p>
+                            <p><strong><a href="/create_league/"><span class="fa fa-gear">Editar liga</span></a>
+                            <strong><a href="/check_requests/"><span class="fa fa-gear">Solicitudes para jugar</span></a></p>
                             </strong>
                         </div>
                     </div>
@@ -114,15 +115,51 @@
                 </div>
             </div>
 
-        <div class="col-md-4">
+            <div class="col-md-5">
                 <h3>Ofertas de traspasos</h3>
 
-                <div class="panel panel-success">
-                    <div class="panel-body panel-success">
-                        <div class="help-block text-center">
 
+                {% if not offers %}
+
+                {% else %}
+                    {% for offer in offers %}
+                        <div class=" ">
+                        <div class="panel panel-success">
+                            <div class="panel-body panel-success">
+                                <div class="col-xs-10 ">
+                                    <p>
+                                        <strong>{{ offer.amount }}</strong> por <a
+                                            href="/player/{{ offer.player }}">{{ offer.player.name }} {{ offer.player.surname }}</a>
+                                    </p>
+
+                                    <p>
+                                        <small><a class="text-warning"
+                                                  href="/profile/{{ offer.buyer }}">{{ offer.buyer.club }}</a></small>
+                                    </p>
+                                </div>
+                                <div class="col-xs-1">
+
+                                    <p>
+
+                                    <form action="/answer_offer/">
+                                        <button name="accept" value="{{ offer.id }}"
+                                                class="fa fa-check text-green"></button>
+                                    </form>
+                                    <form action="/answer_offer/">
+                                        <button name="reject" value="{{ offer.id }}"
+                                                class="fa fa-times text-danger"></button>
+                                    </form>
+                                    </p>
+
+
+                                </div>
+
+
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
+                {% endif %}
+
                 </div>
             </div>
         </div>

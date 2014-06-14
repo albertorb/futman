@@ -9,6 +9,43 @@ from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
+@login_required
+def answerbid(request):
+    if request.method -- 'POST':
+        if request.POST['accept']:
+            offer = get_object_or_404(Offer, id=request.POST['accept'])
+            ply = offer.player
+            amount = offer.amount
+            ## seller updates
+            squad_buyer = squad_club.objects.all().filter(player=ply)
+            squad_buyer.delete()
+            offer.buyer.budget += amount
+            ## end seller updates
+            squad_club.objects.create(player=ply, club=offer.buyer)
+            offer.seller.budget -=amount
+        elif request.POST['reject']:
+            offer = get_object_or_404(Offer, id=request.POST['reject'])
+            offer.delete()
+
+
+
+@login_required
+def dobid(request):
+    if request.method == 'POST':
+        sellr = get_object_or_404(Manager, id=request.POST['sellerhide'])
+        playr = get_object_or_404(Player, id=request.POST['playerhide'])
+        Offer.objects.create(buyer=request.user.manager, seller=sellr, player=playr,
+                             amount=float(request.POST['amnt']))
+    return HttpResponseRedirect('/market/')
+
+@login_required
+def market(request):
+    # market = Player.objects.all()
+    market = squad_club.objects.all()
+    alreadybid = Offer.objects.all().filter(buyer=request.user.manager)
+    return render_to_response('market.html', {'players': market, 'alreadybid':alreadybid}, context_instance=RequestContext(request))
+
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
@@ -17,7 +54,7 @@ def logout_view(request):
 @login_required
 def create_club(request):
     if request.method == 'POST':
-        Team.objects.create(name=request.POST['tname'], manager=request.user.manager)
+        Club.objects.create(name=request.POST['tname'], manager=request.user.manager, budget = 20000000)
         return HttpResponseRedirect('/home/')
 
 
@@ -46,13 +83,17 @@ def create_league(request):
         League.objects.create(name=request.POST['name'], administrator=request.user.manager)
         lg = get_object_or_404(League, name=request.POST['name'])
         Division.objects.create(round=0, league=lg)
-        Club.objects.create(name=request.POST['tname'], manager=request.user.manager)
+        Club.objects.create(name=request.POST['tname'], manager=request.user.manager, budget=20000000)
         cl = get_object_or_404(Club, manager=request.user.manager)
         div = get_object_or_404(Division, league=lg)
         ranking.objects.create(club=cl, punctuation=0.0, division=div)
         return HttpResponseRedirect('/home/')
     return render_to_response('create_league.html', context_instance=RequestContext(request))
 
+@login_required
+def check_join(request):
+    reqsts = JoinRequest.objects.all().filter(admin=request.user.manager)
+    return render_to_response('check_requests.html', {'requests':reqsts}, context_instance=RequestContext(request) )
 
 @login_required
 def join(request):
@@ -81,11 +122,22 @@ def join(request):
 @login_required
 def home(request):
     club = Club.objects.all().filter(manager=request.user.manager)
+    if len(club) > 0:
+        club = club[0]
+    else:
+        club = False
     rank = ranking.objects.all().filter(club=club)
+    if len(rank) > 0:
+        rank = rank[0]
+    else:
+        rank = False
+
     isAdmin = League.objects.all().filter(administrator=request.user.manager)
 
     if len(isAdmin) == 0:
         isAdmin = False
+    else:
+        isAdmin = isAdmin[0]
 
     join_request = JoinRequest.objects.all().filter(manager=request.user.manager)
 
@@ -94,7 +146,13 @@ def home(request):
     else:
         join = True
 
-    return render_to_response('home.html', {'club': club[0], 'hasjoin': join, 'isadmin': isAdmin[0], 'ranking':rank[0]},
+    offers = Offer.objects.all().filter(seller=request.user.manager)
+    print(offers)
+
+    if len(offers) == 0:
+        offers = False
+
+    return render_to_response('home.html', {'club': club, 'hasjoin': join, 'isadmin': isAdmin, 'ranking': rank, 'offers': offers},
                               context_instance=RequestContext(request))
 
 
@@ -162,7 +220,7 @@ def signup(request):
             if 'image' in request.FILES:
                 usr.image = request.FILES['image']
             else:
-                usr.image = 'static/img/noimage.ppg'
+                usr.image = 'static/img/noimage.png'
             usr.save()
 
             return HttpResponseRedirect('/')
