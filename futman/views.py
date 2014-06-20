@@ -7,26 +7,45 @@ from django.http import HttpResponse, HttpResponseRedirect, StreamingHttpRespons
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import datetime
 
 # Create your views here.
-@login_required
-def answerbid(request):
-    if request.method -- 'POST':
-        if request.POST['accept']:
-            offer = get_object_or_404(Offer, id=request.POST['accept'])
-            ply = offer.player
-            amount = offer.amount
-            ## seller updates
-            squad_buyer = squad_club.objects.all().filter(player=ply)
-            squad_buyer.delete()
-            offer.buyer.budget += amount
-            ## end seller updates
-            squad_club.objects.create(player=ply, club=offer.buyer)
-            offer.seller.budget -=amount
-        elif request.POST['reject']:
-            offer = get_object_or_404(Offer, id=request.POST['reject'])
-            offer.delete()
+def feed_buy(offer):
+    bdy = offer.buyer.user.username + " compro por " + str(
+        offer.amount) + " a " + offer.player.name + " que jugaba en  " + offer.seller.club.name
+    f = feed.objects.create(time=datetime.datetime.now(), body=bdy)
+    leag = get_object_or_404(ranking, club=offer.buyer.club)
+    l = league_feed.objects.create(feed=f, league=leag.division.league)
+    f.save()
+    l.save()
 
+
+@login_required
+def accept_offer(request):
+    if request.method == 'POST':
+        offer = get_object_or_404(Offer, id=request.POST['accept'])
+        ply = offer.player
+        amount = offer.amount
+        # # seller updates
+        squad_buyer = squad_club.objects.all().filter(player=ply)
+        squad_buyer.delete()
+        offer.buyer.club.budget -= amount
+        offer.buyer.club.save()
+        # # end seller updates
+        squad_club.objects.create(player=ply, club=offer.buyer.club)
+        offer.seller.club.budget += amount
+        offer.seller.club.save()
+        feed_buy(offer)
+        offer.delete()
+    return HttpResponseRedirect('/home/')
+
+
+@login_required
+def reject_offer(request):
+    if request.method == 'POST':
+        offer = get_object_or_404(Offer, id=request.POST['reject'])
+        offer.delete()
+    return HttpResponseRedirect('/home/')
 
 
 @login_required
@@ -38,12 +57,14 @@ def dobid(request):
                              amount=float(request.POST['amnt']))
     return HttpResponseRedirect('/market/')
 
+
 @login_required
 def market(request):
     # market = Player.objects.all()
     market = squad_club.objects.all()
     alreadybid = Offer.objects.all().filter(buyer=request.user.manager)
-    return render_to_response('market.html', {'players': market, 'alreadybid':alreadybid}, context_instance=RequestContext(request))
+    return render_to_response('market.html', {'players': market, 'alreadybid': alreadybid},
+                              context_instance=RequestContext(request))
 
 
 def logout_view(request):
@@ -54,7 +75,7 @@ def logout_view(request):
 @login_required
 def create_club(request):
     if request.method == 'POST':
-        Club.objects.create(name=request.POST['tname'], manager=request.user.manager, budget = 20000000)
+        Club.objects.create(name=request.POST['tname'], manager=request.user.manager, budget=20000000)
         return HttpResponseRedirect('/home/')
 
 
@@ -65,7 +86,32 @@ def league_settings(request):
 
 @login_required
 def lineup(request):
-    return render_to_response('lineup.html', context_instance=RequestContext(request))
+    # lineup
+    aux = squad_titular.objects.all().filter(club=request.user.manager.club)
+    lineup = []
+    for elem in aux:
+        lineup.append(elem.player)
+
+    # sorted players
+    whole = squad_club.objects.all().filter(club=request.user.manager.club)
+    strik = []
+    mid = []
+    defn = []
+    goalk = []
+    for elem in whole:
+        if elem.player.position == 's':
+            strik.append(elem.player)
+        if elem.player.position == 'm':
+            mid.append(elem.player)
+        if elem.player.position == 'd':
+            defn.append(elem.player)
+        if elem.player.position == 'g':
+            goalk.append(elem.player)
+
+    return render_to_response('lineup.html',
+                              {'lineup': lineup, 'Strikers': strik, 'Midfielders': mid, 'Defenses': defn,
+                               'Goalkeepers': goalk},
+                              context_instance=RequestContext(request))
 
 
 @login_required
@@ -90,10 +136,12 @@ def create_league(request):
         return HttpResponseRedirect('/home/')
     return render_to_response('create_league.html', context_instance=RequestContext(request))
 
+
 @login_required
 def check_join(request):
     reqsts = JoinRequest.objects.all().filter(admin=request.user.manager)
-    return render_to_response('check_requests.html', {'requests':reqsts}, context_instance=RequestContext(request) )
+    return render_to_response('check_requests.html', {'requests': reqsts}, context_instance=RequestContext(request))
+
 
 @login_required
 def join(request):
@@ -152,7 +200,14 @@ def home(request):
     if len(offers) == 0:
         offers = False
 
-    return render_to_response('home.html', {'club': club, 'hasjoin': join, 'isadmin': isAdmin, 'ranking': rank, 'offers': offers},
+    fd = league_feed.objects.all().filter(league=rank.division.league)
+    feeds = []
+    for elem in fd:
+        feeds.append(elem.feed)
+
+    return render_to_response('home.html',
+                              {'feed': feeds, 'club': club, 'hasjoin': join, 'isadmin': isAdmin, 'ranking': rank,
+                               'offers': offers},
                               context_instance=RequestContext(request))
 
 
@@ -164,10 +219,12 @@ def league(request):
 @login_required
 def settings(request):
     if request.method == 'POST':
+        managerform = ManagerForm
         print(request.POST['username'])
-        djan = User.objects.update(username=request.POST['username'], email=request.POST['email'])
+        djan = User.objects.all().filter(username=request.POST['username'])
+        djan.update(username=request.POST['username'], email=request.POST['email'])
         if request.POST['password']:
-            djan = User.objects.update(password=request.POST['password'])
+            djan.update(password=request.POST['password'])
         usr = managerform.save(commit=False)
         usr.user = djan
         if 'image' in request.FILES:
@@ -176,6 +233,7 @@ def settings(request):
             pass
         elif usr.image is None:
             usr.image = 'static/img/noimage.ppg'
+        djan.save()
         usr.save()
 
         return HttpResponseRedirect('/')

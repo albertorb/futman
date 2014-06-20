@@ -27,7 +27,7 @@ class Player(models.Model):
     totalPunctuation = models.FloatField()
 
     def __unicode__(self):
-        return self.name + ',' + self.surname
+        return self.name + ' ' + self.surname
 
 
 class playsOn(models.Model):
@@ -56,6 +56,11 @@ class Club(models.Model):
 class squad_club(models.Model):
     player = models.ForeignKey(Player, related_name='player_squad')
     club = models.ForeignKey(Club, related_name='club_squad')
+
+
+class squad_titular(models.Model):
+    player = models.ForeignKey(Player, related_name='player_titular')
+    club = models.ForeignKey(Club, related_name='titular_club')
 
 
 class League(models.Model):
@@ -123,3 +128,13 @@ class Offer(models.Model):
 class RawPunctuation(models.Model):
     player = models.OneToOneField(Player)
     total = models.FloatField()
+
+
+class feed(models.Model):
+    time = models.DateTimeField()
+    body = models.TextField()
+
+
+class league_feed(models.Model):
+    feed = models.ForeignKey(feed)
+    league = models.ForeignKey(League)

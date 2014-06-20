@@ -90,7 +90,8 @@
                                 <small>Eres administrador de <strong>{{ isadmin.name }}</strong></small>
                             </p
                             <p><strong><a href="/create_league/"><span class="fa fa-gear">Editar liga</span></a>
-                            <strong><a href="/check_requests/"><span class="fa fa-gear">Solicitudes para jugar</span></a></p>
+                                <strong><a href="/check_requests/"><span
+                                        class="fa fa-gear">Solicitudes para jugar</span></a></p>
                             </strong>
                         </div>
                     </div>
@@ -141,11 +142,11 @@
 
                                     <p>
 
-                                    <form action="/answer_offer/">
+                                    <form action="/accept_offer/" method="post">{% csrf_token %}
                                         <button name="accept" value="{{ offer.id }}"
                                                 class="fa fa-check text-green"></button>
                                     </form>
-                                    <form action="/answer_offer/">
+                                    <form action="/reject_offer/" method="post">{% csrf_token %}
                                         <button name="reject" value="{{ offer.id }}"
                                                 class="fa fa-times text-danger"></button>
                                     </form>
@@ -162,8 +163,30 @@
 
                 </div>
             </div>
-        </div>
 
+
+        </div>
+        <div class="row center-block container panel">
+
+            <h3>Novedades en {{ ranking.division.league }}</h3>
+
+            <div class="col-md-12  ">
+                <div class="table-responsive ">
+                    <table class="table">
+                        {% for new in feed %}
+                            <tr>
+                                <td style="border:0;">
+                                    <blockquote>
+                                        <p class="text-info text-info">{{ new.body }}</p>
+                                        <footer class="">{{ new.time }}</footer>
+                                    </blockquote>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
 
 
 

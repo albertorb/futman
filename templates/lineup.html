@@ -1,113 +1,158 @@
 {% extends 'master_in.html' %}
 {% block home %}
-        <div class="row container center-block padding-top-10">
-            <div class="col-md-6">
-                <!-- Default panel contents -->
-                <div class=""><h2>Lineup</h2></div>
-                <!-- Table -->
-                <table class="table borderless "
-                       style="background-image: url('{{ STATIC_URL }}img/pitch.png'); background-size: cover; width:500px; height:500px;">
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr id="strikers">
+    <div class="row container center-block padding-top-10">
+        <div class="col-md-6" style="background-image: url('{{ STATIC_URL }}img/pitch.jpeg'); background-size: cover">
+            <div id="strikers" class="row padding-left-25 padding-top-10">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.0.image }}">
+                </div>
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.1.image }}">
+                </div>
+                <div class="col-xs-2"></div>
+            </div>
+            <div id="midfielders" class="row padding-top-5 padding-left-25">
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.0.image }}">
+                </div>
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.1.image }}">
+                </div>
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.2.image }}">
+                </div>
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.1.image }}">
+                </div>
+            </div>
 
-                        <td></td>
-                        <td class="text-center "><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                        <td></td>
+            <div id="defenders" class="row padding-top-5 padding-left-25">
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.0.image }}">
+                </div>
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.1.image }}">
 
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
+                </div>
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.2.image }}">
+                </div>
+                <div class="col-xs-2">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.1.image }}">
+                </div>
+            </div>
 
-                    <tr id="midfielders1" class="">
+            <div id="goalkeeper" class="row padding-top-10 padding-left-15">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-4 padding-left-5">
+                    <img class="img-lineup img-circle" src="{{ MEDIA_URL }}{{ lineup.0.image }}">
+                </div>
+                <div class="col-xs-4"></div>
+            </div>
+        </div>
 
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-
-                    </tr>
-
-                    <tr id="midfielders2" class="">
-
-                        <td></td>
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                        <td></td>
-
-                    </tr>
-
-                    <tr id="defense1" class="">
-
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-
-                    </tr>
-
-                    <tr id="defense2" class="">
-
-                        <td></td>
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                        <td class="text-center"><img class="img-circle" src="{{ STATIC_URL }}img/denilson.jpeg"></td>
-                        <td></td>
-
-                    </tr>
+        <div class="col-xs-offset-1 col-md-4 text-center">
 
 
-                    <tr id="goalkeeper" class="">
+            <div class="row center-block">
+                <h4><span class="label label-primary pull-left">Delanteros</span></h4>
+            </div>
 
-
-                        <td class="goalkeeper"><img class="img-circle"
-                                                    src="{{ STATIC_URL }}img/denilson.jpeg">
-                        </td>
-
-
-                    </tr>
+            <div class="table-responsive">
+                <table class="table panel">
+                    {% for player in Strikers %}
+                        <tr>
+                            <td>
+                                <small>{{ player.name }} {{ player.surname }}</small>
+                            </td>
+                            <td>
+                               <small> {{ player.totalPunctuation }} pts</small>
+                            </td>
+                            <td>
+                                <small>{{ player.value }} </small>
+                                <span class="fa fa-euro"></span>
+                            </td>
+                        </tr>
+                    {% endfor %}
 
                 </table>
             </div>
-            <div class="col-md-4">
-                <div id="playerList">
-                    <table class="table">
-                        <tr>
-                            <td><h4>Name</h4></td>
-                            <td><h4>Position</h4></td>
-                            <td><h4>Points</h4></td>
-                            <td><h4>Value</h4></td>
-                        </tr>
-                    </table>
-                </div>
+            <div class="row center-block">
+                <h4><span class="label label-danger pull-left">Centrocampistas</span></h4>
             </div>
+
+            <div class="table-responsive">
+                <table class="table panel">
+                    {% for player in Midfielders %}
+                        <tr>
+                            <td>
+                                <small>{{ player.name }} {{ player.surname }}</small>
+                            </td>
+                            <td>
+                               <small> {{ player.totalPunctuation }} pts</small>
+                            </td>
+                            <td>
+                                <small>{{ player.value }} </small>
+                                <span class="fa fa-euro"></span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+
+            <div class="row center-block">
+                <h4><span class="label label-warning pull-left">Defensas</span></h4>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table panel">
+                    {% for player in Defenses %}
+                        <tr>
+                            <td>
+                                <small>{{ player.name }} {{ player.surname }}</small>
+                            </td>
+                            <td>
+                                <small> {{ player.totalPunctuation }} pts</small>
+                            </td>
+                            <td>
+                                <small>{{ player.value }} </small>
+                                <span class="fa fa-euro"></span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+
+            <div class="row center-block">
+                <h4><span class="label label-default pull-left">Porteros</span></h4>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table panel">
+                    {% for player in Goalkeepers %}
+                        <tr>
+                            <td>
+                                <small>{{ player.name }} {{ player.surname }}</small>
+                            </td>
+                            <td>
+                              <small> {{ player.totalPunctuation }} pts</small>
+                            </td>
+                            <td>
+                                <small>{{ player.value }} </small>
+                                <span class="fa fa-euro"></span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+
         </div>
+    </div>
+    </div>
 
 
 

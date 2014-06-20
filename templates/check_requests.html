@@ -3,21 +3,17 @@
     <div class="row container center-block">
         {% for req in requests %}
             <div class="col-md-3">
-                <div class="panel">
+                <div class="panel panel-info">
                     <div class="panel-body ">
                         <div class="col-xs-12 text-center">
+                            <p class="">{{ req.manager }}</p>
 
-                                <p class="">{{ req.manager }}</p>
+                            <form method="post" action="accept_request">
+                                <button name="accept" class="btn btn-default text-green btn-xs">Aceptar</button>
 
-
-
-                                <button class="btn btn-default text-green btn-xs">Aceptar</button>
-                                <button class="btn btn-default text-red btn-xs">Rechazar</button>
-
-                            
+                                <button name="reject" class="btn btn-default text-red btn-xs">Rechazar</button>
+                            </form>
                         </div>
-
-
                     </div>
                 </div>
             </div>
