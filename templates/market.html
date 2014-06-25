@@ -5,31 +5,31 @@
         {% for p in players %}
 
 
-                <div class="col-sm-2 col-md-2">
-                    <div class="thumbnail">
-                        <a href="/player/{{ p.player.name }}"> <img class="img-rounded img-market"
-                                                                    src="{{ MEDIA_URL }}{{ p.player.image }}"></a>
+            <div class="col-sm-2 col-md-2">
+                <div class="thumbnail">
+                    <a href="/player/{{ p.player.name }}"> <img class="img-rounded img-market"
+                                                                src="{{ MEDIA_URL }}{{ p.player.image }}"></a>
 
-                        <div class="caption text-center">
-                            <h3>{{ p.player.name }} {{ p.player.surname }}</h3>
+                    <div class="caption text-center">
+                        <h3>{{ p.player.name }} {{ p.player.surname }}</h3>
 
-                            <p>{{ p.player.value }}€</p>
+                        <p>{{ p.player.value }}€</p>
 
-                            <p><a href="/profile/{{ p.club }}" class="small text-warning">{{ p.club }}</a></p>
+                        <p><a href="/profile/{{ p.club }}" class="small text-warning">{{ p.club }}</a></p>
 
-                            {% if player in alreadybid.player.all %}
-                                <a class="btn btn-xs btn-default text-danger" data-toggle="modal"
-                                   data-target=".bs-example-modal-sm" href=""
-                                   onclick="bid('{{ p.player.id }}', '{{ p.club.manager.id }}')">cancelar puja</a>
+                        {% if player in alreadybid.player.all %}
+                            <a class="btn btn-xs btn-default text-danger" data-toggle="modal"
+                               data-target=".bs-example-modal-sm" href=""
+                               onclick="bid('{{ p.player.id }}', '{{ p.club.manager.id }}')">cancelar puja</a>
 
-                            {% else %}
-                                <a class="btn btn-success" data-toggle="modal"
-                                   data-target=".bs-example-modal-sm" href=""
-                                   onclick="bid('{{ p.player.id }}', '{{ p.club.manager.id }}')">Pujar</a>
-                            {% endif %}
-                        </div>
+                        {% else %}
+                            <a class="btn btn-success" data-toggle="modal"
+                               data-target=".bs-example-modal-sm" href=""
+                               onclick="bid('{{ p.player.id }}', '{{ p.club.manager.id }}')">Pujar</a>
+                        {% endif %}
                     </div>
                 </div>
+            </div>
 
 
         {% endfor %}

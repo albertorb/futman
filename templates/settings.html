@@ -10,11 +10,13 @@
             <form role="form" method="post" class="panel-body">{% csrf_token %}
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" value="{{ request.user }}">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
+                           value="{{ request.user }}">
                 </div>
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="{{ request.user.email }}">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
+                           value="{{ request.user.email }}">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

@@ -8,8 +8,20 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
+import random
 
 # Create your views here.
+
+
+def set_onsale(request):
+    if request.method == 'POST':
+        ply = get_object_or_404(Player, id=request.POST['player'])
+        onsale.objects.create(player=ply, amount=request.POST['amount'],
+                              date=datetime.datetime.now())
+        return HttpResponseRedirect('/lineup')
+    return HttpResponseRedirect('/panic')
+
+
 def feed_buy(offer):
     bdy = offer.buyer.user.username + " compro por " + str(
         offer.amount) + " a " + offer.player.name + " que jugaba en  " + offer.seller.club.name
@@ -61,9 +73,11 @@ def dobid(request):
 @login_required
 def market(request):
     # market = Player.objects.all()
-    market = squad_club.objects.all()
-    alreadybid = Offer.objects.all().filter(buyer=request.user.manager)
-    return render_to_response('market.html', {'players': market, 'alreadybid': alreadybid},
+    update_markets()
+    markt = Market.objects.filter(league=request.user.manager.league)
+    players = player_market.objects.filter(market=markt)
+    alreadybid = Offer.objects.filter(buyer=request.user.manager)
+    return render_to_response('market.html', {'players': players, 'alreadybid': alreadybid},
                               context_instance=RequestContext(request))
 
 
@@ -98,7 +112,9 @@ def lineup(request):
     mid = []
     defn = []
     goalk = []
+    all = []
     for elem in whole:
+        all.append(elem.player)
         if elem.player.position == 's':
             strik.append(elem.player)
         if elem.player.position == 'm':
@@ -107,10 +123,10 @@ def lineup(request):
             defn.append(elem.player)
         if elem.player.position == 'g':
             goalk.append(elem.player)
-
+    print(all)
     return render_to_response('lineup.html',
                               {'lineup': lineup, 'Strikers': strik, 'Midfielders': mid, 'Defenses': defn,
-                               'Goalkeepers': goalk},
+                               'Goalkeepers': goalk, 'whole': all},
                               context_instance=RequestContext(request))
 
 
@@ -133,6 +149,7 @@ def create_league(request):
         cl = get_object_or_404(Club, manager=request.user.manager)
         div = get_object_or_404(Division, league=lg)
         ranking.objects.create(club=cl, punctuation=0.0, division=div)
+        initialize_market(Market.objects.create(league=lg))
         return HttpResponseRedirect('/home/')
     return render_to_response('create_league.html', context_instance=RequestContext(request))
 
@@ -199,11 +216,13 @@ def home(request):
 
     if len(offers) == 0:
         offers = False
-
-    fd = league_feed.objects.all().filter(league=rank.division.league)
+    fd = None
     feeds = []
-    for elem in fd:
-        feeds.append(elem.feed)
+    if rank:
+        fd = league_feed.objects.filter(league=rank.division.league)
+
+        for elem in fd:
+            feeds.append(elem.feed)
 
     return render_to_response('home.html',
                               {'feed': feeds, 'club': club, 'hasjoin': join, 'isadmin': isAdmin, 'ranking': rank,
@@ -289,3 +308,68 @@ def signup(request):
             djangoform = DjangoForm()
 
     return render_to_response('signup.html', {}, context_instance=RequestContext(request))
+
+
+def update_markets():
+    updates_counter = 0  # players to be added on market
+    for markt in Market.objects.all():
+        onmarket = player_market.objects.filter(market=markt)
+        for player in onmarket:
+            diff = datetime.datetime.now().day - player.date_joined.day
+            print(diff)
+            if diff >= 2:
+                offers = Offer.objects.filter(player=player).order_by('amount')
+                if len(offers) > 0:
+                    acceptoffer(offers[0])
+                    removeoffers(offers)
+                    player.delete()
+                    updates_counter += 1
+                else:
+                    player.delete()
+                    updates_counter += 1
+        if updates_counter > 0:
+            working_list = []
+            onmarket = player_market.objects.filter(market=markt)
+            for elem in onmarket:
+                working_list.append(elem.player)
+            for count in range(updates_counter):
+                new_player = Player.objects.order_by('?')[0]
+                while new_player in working_list:
+                    new_player = Player.objects.order_by('?')[0]
+                working_list.append(new_player)
+
+                player_market.objects.create(player=new_player, amount=new_player.value, market=markt,
+                                             date_joined=datetime.datetime.now())
+
+
+def initialize_market(markt):
+    working_list = []
+    for count in range(5):
+        new_player = Player.objects.order_by('?')[0]
+        while new_player in working_list:
+            new_player = Player.objects.order_by('?')[0]
+        working_list.append(new_player)
+
+        player_market.objects.create(player=new_player, amount=new_player.value, market=markt,
+                                     date_joined=datetime.datetime.now())
+
+
+def acceptoffer(offer):
+    ply = offer.player
+    amount = offer.amount  # # seller updates
+    squad_buyer = squad_club.objects.all().filter(player=ply)
+    squad_buyer.delete()
+    offer.buyer.club.budget -= amount
+    offer.buyer.club.save()
+    # # end seller updates
+    squad_club.objects.create(player=ply, club=offer.buyer.club)
+    offer.seller.club.budget += amount
+    offer.seller.club.save()
+    feed_buy(offer)
+    offer.delete()
+
+
+def removeoffers(offers):
+    for elem in offers:
+        elem.delete()
+    print('offers deleted')

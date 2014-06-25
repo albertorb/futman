@@ -26,6 +26,7 @@ urlpatterns = patterns('',
                        url(r'^check_requests/$', 'futman.views.check_join', name='check_requests'),
                        url(r'^accept_offer/$', 'futman.views.accept_offer', name='accept_offer'),
                        url(r'^reject_offer/$', 'futman.views.reject_offer', name='reject_offer'),
+                       url(r'^set_onsale/$', 'futman.views.set_onsale', name='set_onsale'),
 
                        url(r'^admin/', include(admin.site.urls)),
 )

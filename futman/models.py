@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.signals import request_finished
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -72,6 +74,17 @@ class League(models.Model):
         return self.name
 
 
+class Market(models.Model):
+    league = models.ForeignKey(League, related_name='market_league')
+
+
+class player_market(models.Model):
+    market = models.ForeignKey(Market, related_name='player_market')
+    date_joined = models.DateField()
+    amount = models.FloatField()
+    player = models.ForeignKey(Player, related_name='market_player')
+
+
 class Cup(models.Model):
     round = models.IntegerField()  # to identify the round
     league = models.ForeignKey(League, related_name='cup_league')
@@ -138,3 +151,18 @@ class feed(models.Model):
 class league_feed(models.Model):
     feed = models.ForeignKey(feed)
     league = models.ForeignKey(League)
+
+
+class onsale(models.Model):
+    player = models.ForeignKey(Player, related_name='player_onsale')
+    amount = models.FloatField()
+    date = models.DateField()
+
+
+class market_update(models.Model):
+    last = models.DateField()
+    market = models.ForeignKey(Market, related_name='market_last')
+
+
+# # SIGNALS ##
+
