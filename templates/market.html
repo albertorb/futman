@@ -14,19 +14,24 @@
                         <h3>{{ p.player.name }} {{ p.player.surname }}</h3>
 
                         <p>{{ p.player.value }}€</p>
+                        {% if p.agent %}
+                            <p><a href="#" class="small text-warning">{{ p.agent }}</a></p>
+                        {% else %}
+                            <p><a href="/profile/{{ p.seller }}" class="small text-warning">{{ p.seller }}</a></p>
+                        {% endif %}
 
-                        <p><a href="/profile/{{ p.club }}" class="small text-warning">{{ p.club }}</a></p>
 
-                        {% if player in alreadybid.player.all %}
+                        {% if p in alreadybid %}
                             <a class="btn btn-xs btn-default text-danger" data-toggle="modal"
                                data-target=".bs-example-modal-sm" href=""
-                               onclick="bid('{{ p.player.id }}', '{{ p.club.manager.id }}')">cancelar puja</a>
-
-                        {% else %}
-                            <a class="btn btn-success" data-toggle="modal"
-                               data-target=".bs-example-modal-sm" href=""
-                               onclick="bid('{{ p.player.id }}', '{{ p.club.manager.id }}')">Pujar</a>
+                               onclick="bid('{{ p.player.id }}', '{{ p.agent.id }}')">cancelar puja</a>
                         {% endif %}
+
+                        <a class="btn btn-success" data-toggle="modal"
+                           data-target=".bs-example-modal-sm" href=""
+                           onclick="bid('{{ p.player.id }}', '{{ p.agent.id }}')">Pujar</a>
+
+
                     </div>
                 </div>
             </div>

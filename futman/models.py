@@ -83,6 +83,7 @@ class player_market(models.Model):
     date_joined = models.DateField()
     amount = models.FloatField()
     player = models.ForeignKey(Player, related_name='market_player')
+    agent = models.ForeignKey(Manager, related_name='free_market')
 
 
 class Cup(models.Model):
@@ -136,6 +137,7 @@ class Offer(models.Model):
     seller = models.ForeignKey(Manager, related_name='seller_offer')
     player = models.ForeignKey(Player, related_name='player_offer')
     amount = models.FloatField()
+    date = models.DateField()
 
 
 class RawPunctuation(models.Model):
@@ -155,8 +157,10 @@ class league_feed(models.Model):
 
 class onsale(models.Model):
     player = models.ForeignKey(Player, related_name='player_onsale')
+    seller = models.ForeignKey(Manager, related_name='manager_onsale')
     amount = models.FloatField()
     date = models.DateField()
+    market = models.ForeignKey(Market, related_name='market_onsale')
 
 
 class market_update(models.Model):

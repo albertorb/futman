@@ -16,15 +16,22 @@ import random
 def set_onsale(request):
     if request.method == 'POST':
         ply = get_object_or_404(Player, id=request.POST['player'])
+        rankng = get_object_or_404(ranking, club=request.user.manager.club)
+        lg = rankng.division.league
+        mkt = get_object_or_404(Market, league=lg)
         onsale.objects.create(player=ply, amount=request.POST['amount'],
-                              date=datetime.datetime.now())
+                              date=datetime.datetime.now(), market=mkt, seller=request.user.manager)
         return HttpResponseRedirect('/lineup')
     return HttpResponseRedirect('/panic')
 
 
 def feed_buy(offer):
-    bdy = offer.buyer.user.username + " compro por " + str(
-        offer.amount) + " a " + offer.player.name + " que jugaba en  " + offer.seller.club.name
+    if not offer.seller.user.username == 'libre':
+        bdy = offer.buyer.user.username + " compro por " + str(
+            offer.amount) + " a " + offer.player.name + " que jugaba en  " + offer.seller.club.name
+    else:
+        bdy = offer.buyer.user.username + " compro por " + str(
+            offer.amount) + " a " + offer.player.name + " que estaba libre"
     f = feed.objects.create(time=datetime.datetime.now(), body=bdy)
     leag = get_object_or_404(ranking, club=offer.buyer.club)
     l = league_feed.objects.create(feed=f, league=leag.division.league)
@@ -66,7 +73,7 @@ def dobid(request):
         sellr = get_object_or_404(Manager, id=request.POST['sellerhide'])
         playr = get_object_or_404(Player, id=request.POST['playerhide'])
         Offer.objects.create(buyer=request.user.manager, seller=sellr, player=playr,
-                             amount=float(request.POST['amnt']))
+                             amount=float(request.POST['amnt']), date=datetime.datetime.now())
     return HttpResponseRedirect('/market/')
 
 
@@ -74,9 +81,20 @@ def dobid(request):
 def market(request):
     # market = Player.objects.all()
     update_markets()
-    markt = Market.objects.filter(league=request.user.manager.league)
-    players = player_market.objects.filter(market=markt)
+    clb = request.user.manager.club
+    rank = get_object_or_404(ranking, club=clb)
+    markt = Market.objects.filter(league=rank.division.league)
+    players = list(player_market.objects.filter(market=markt))
+    players_users = list(onsale.objects.filter(market=markt))
+    for elem in players_users:
+        players.append(elem)
+
     alreadybid = Offer.objects.filter(buyer=request.user.manager)
+
+    for elem in players:
+        if elem in alreadybid.all():
+            print(elem.name, ' esta')
+
     return render_to_response('market.html', {'players': players, 'alreadybid': alreadybid},
                               context_instance=RequestContext(request))
 
@@ -310,21 +328,41 @@ def signup(request):
     return render_to_response('signup.html', {}, context_instance=RequestContext(request))
 
 
+def computer_offers():
+    players_onsale = onsale.objects.all()
+    usr = get_object_or_404(User, username='libre')
+    free_agent = get_object_or_404(Manager, user=usr)
+    for elem in players_onsale:
+        rcv_offers = Offer.objects.filter(player=elem, buyer=free_agent).order_by('date')
+        if len(rcv_offers) > 0:
+            if (datetime.datetime.now().day - rcv_offers[0].date.day) > 0:
+                seller = squad_club.objects.filter(player=elem)
+                amnt = elem.value - elem.value * 0.05
+                Offer.objects.create(buyer=free_agent, seller=seller.club.manager, player=elem, amount=amnt)
+
+
 def update_markets():
     updates_counter = 0  # players to be added on market
+    usr = get_object_or_404(User, username='libre')
+    free_agent = get_object_or_404(Manager, user=usr)
     for markt in Market.objects.all():
         onmarket = player_market.objects.filter(market=markt)
         for player in onmarket:
-            diff = datetime.datetime.now().day - player.date_joined.day
-            print(diff)
-            if diff >= 2:
-                offers = Offer.objects.filter(player=player).order_by('amount')
+            diff = datetime.date.today() - player.date_joined
+            print('diff vale: ', diff)
+            if diff.days >= 2:
+                offers = Offer.objects.filter(player=player.player).order_by('-amount')
+                print(len(offers))
+                print(offers[0].buyer.user.username)
+
                 if len(offers) > 0:
+
                     acceptoffer(offers[0])
                     removeoffers(offers)
                     player.delete()
                     updates_counter += 1
                 else:
+
                     player.delete()
                     updates_counter += 1
         if updates_counter > 0:
@@ -337,13 +375,15 @@ def update_markets():
                 while new_player in working_list:
                     new_player = Player.objects.order_by('?')[0]
                 working_list.append(new_player)
-
                 player_market.objects.create(player=new_player, amount=new_player.value, market=markt,
-                                             date_joined=datetime.datetime.now())
+                                             date_joined=datetime.datetime.now(), agent=free_agent)
+    computer_offers()
 
 
 def initialize_market(markt):
     working_list = []
+    usr = get_object_or_404(User, username='libre')
+    free_agent = get_object_or_404(Manager, user=usr)
     for count in range(5):
         new_player = Player.objects.order_by('?')[0]
         while new_player in working_list:
@@ -351,25 +391,28 @@ def initialize_market(markt):
         working_list.append(new_player)
 
         player_market.objects.create(player=new_player, amount=new_player.value, market=markt,
-                                     date_joined=datetime.datetime.now())
+                                     date_joined=datetime.datetime.now(), agent=free_agent)
 
 
 def acceptoffer(offer):
     ply = offer.player
-    amount = offer.amount  # # seller updates
+    amount = offer.amount  # # buyer updates
     squad_buyer = squad_club.objects.all().filter(player=ply)
     squad_buyer.delete()
     offer.buyer.club.budget -= amount
     offer.buyer.club.save()
-    # # end seller updates
+    # # end buyer updates
     squad_club.objects.create(player=ply, club=offer.buyer.club)
-    offer.seller.club.budget += amount
-    offer.seller.club.save()
+    if not offer.seller.user.username == 'libre':
+        offer.seller.club.budget += amount
+        offer.seller.club.save()
     feed_buy(offer)
-    offer.delete()
 
 
 def removeoffers(offers):
     for elem in offers:
-        elem.delete()
+        print(elem.player.name)
+        print(elem.buyer.user)
+        of = Offer.objects.filter(player=elem.player, buyer=elem.buyer)
+        of.delete()
     print('offers deleted')
