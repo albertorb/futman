@@ -19,8 +19,8 @@ def set_onsale(request):
         rankng = get_object_or_404(ranking, club=request.user.manager.club)
         lg = rankng.division.league
         mkt = get_object_or_404(Market, league=lg)
-        onsale.objects.create(player=ply, amount=request.POST['amount'],
-                              date=datetime.datetime.now(), market=mkt, seller=request.user.manager)
+        player_market.objects.create(player=ply, amount=request.POST['amount'],
+                                     date_joined=datetime.datetime.now(), market=mkt, agent=request.user.manager)
         return HttpResponseRedirect('/lineup')
     return HttpResponseRedirect('/panic')
 
@@ -29,11 +29,19 @@ def feed_buy(offer):
     if not offer.seller.user.username == 'libre':
         bdy = offer.buyer.user.username + " compro por " + str(
             offer.amount) + " a " + offer.player.name + " que jugaba en  " + offer.seller.club.name
+        leag = get_object_or_404(ranking, club=offer.seller.club)
+    elif offer.buyer.user.username == 'libre':
+        bdy = offer.seller.user.username + " vendio por " + str(
+            offer.amount) + " al " + offer.player.name + " a mercado libre"
+        leag = get_object_or_404(ranking, club=offer.seller.club)
+
     else:
         bdy = offer.buyer.user.username + " compro por " + str(
             offer.amount) + " a " + offer.player.name + " que estaba libre"
+        leag = get_object_or_404(ranking, club=offer.buyer.club)
+
     f = feed.objects.create(time=datetime.datetime.now(), body=bdy)
-    leag = get_object_or_404(ranking, club=offer.buyer.club)
+
     l = league_feed.objects.create(feed=f, league=leag.division.league)
     f.save()
     l.save()
@@ -45,17 +53,27 @@ def accept_offer(request):
         offer = get_object_or_404(Offer, id=request.POST['accept'])
         ply = offer.player
         amount = offer.amount
-        # # seller updates
-        squad_buyer = squad_club.objects.all().filter(player=ply)
-        squad_buyer.delete()
-        offer.buyer.club.budget -= amount
-        offer.buyer.club.save()
-        # # end seller updates
-        squad_club.objects.create(player=ply, club=offer.buyer.club)
+        # # buyer updates
+        if offer.buyer.user.username == 'libre':
+            pass
+        else:
+            squad_buyer = squad_club.objects.all().filter(player=ply)
+            squad_buyer.delete()
+            offer.buyer.club.budget -= amount
+            offer.buyer.club.save()
+        # # end buyer updates
+        if offer.buyer.user.username == 'libre':
+            pass
+        else:
+            squad_club.objects.create(player=ply, club=offer.buyer.club)
         offer.seller.club.budget += amount
         offer.seller.club.save()
         feed_buy(offer)
         offer.delete()
+        rank = get_object_or_404(ranking, club=request.user.manager.club)
+        markt = get_object_or_404(Market, league=rank.division.league)
+
+        player_market.objects.get(player=ply, market=markt).delete()
     return HttpResponseRedirect('/home/')
 
 
@@ -85,10 +103,6 @@ def market(request):
     rank = get_object_or_404(ranking, club=clb)
     markt = Market.objects.filter(league=rank.division.league)
     players = list(player_market.objects.filter(market=markt))
-    players_users = list(onsale.objects.filter(market=markt))
-    for elem in players_users:
-        players.append(elem)
-
     alreadybid = Offer.objects.filter(buyer=request.user.manager)
 
     for elem in players:
@@ -329,16 +343,23 @@ def signup(request):
 
 
 def computer_offers():
-    players_onsale = onsale.objects.all()
+    players_onsale = player_market.objects.all()
     usr = get_object_or_404(User, username='libre')
     free_agent = get_object_or_404(Manager, user=usr)
     for elem in players_onsale:
-        rcv_offers = Offer.objects.filter(player=elem, buyer=free_agent).order_by('date')
-        if len(rcv_offers) > 0:
-            if (datetime.datetime.now().day - rcv_offers[0].date.day) > 0:
-                seller = squad_club.objects.filter(player=elem)
-                amnt = elem.value - elem.value * 0.05
-                Offer.objects.create(buyer=free_agent, seller=seller.club.manager, player=elem, amount=amnt)
+        if not elem.agent.user.username == 'libre':
+            rcv_offers = Offer.objects.filter(player=elem, buyer=free_agent).order_by('date')
+            if len(rcv_offers) > 0:
+                if (datetime.datetime.now().day - rcv_offers[0].date.day) > 0:
+                    seller = squad_club.objects.filter(player=elem.player)[0]
+                    amnt = elem.player.value - elem.player.value * 0.05
+                    Offer.objects.create(buyer=free_agent, seller=seller.club.manager, player=elem.player, amount=amnt,
+                                         date=datetime.datetime.now())
+            else:
+                seller = squad_club.objects.filter(player=elem.player).__getitem__(0)
+                amnt = elem.player.value - elem.player.value * 0.05
+                Offer.objects.create(buyer=free_agent, seller=seller.club.manager, player=elem.player, amount=amnt,
+                                     date=datetime.datetime.now())
 
 
 def update_markets():
