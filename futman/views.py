@@ -20,7 +20,8 @@ def set_onsale(request):
         lg = rankng.division.league
         mkt = get_object_or_404(Market, league=lg)
         amt = float(request.POST['amount'])
-        player_market.objects.create(player=ply, amount=amt, date_joined=datetime.datetime.now(),agent=request.user.manager,market=mkt)
+        player_market.objects.create(player=ply, amount=amt, date_joined=datetime.datetime.now(),
+                                     agent=request.user.manager, market=mkt)
         return HttpResponseRedirect('/lineup')
     return HttpResponseRedirect('/panic')
 
@@ -104,12 +105,13 @@ def market(request):
     markt = Market.objects.filter(league=rank.division.league)
     players = list(player_market.objects.filter(market=markt))
     alreadybid = Offer.objects.filter(buyer=request.user.manager)
+    offerslen = len(Offer.objects.all().filter(seller=request.user.manager))
 
     for elem in players:
         if elem in alreadybid.all():
             print(elem.name, ' esta')
 
-    return render_to_response('market.html', {'players': players, 'alreadybid': alreadybid},
+    return render_to_response('market.html', {'players': players, 'alreadybid': alreadybid, 'offersbadge':offerslen},
                               context_instance=RequestContext(request))
 
 
@@ -156,9 +158,10 @@ def lineup(request):
         if elem.player.position == 'g':
             goalk.append(elem.player)
     print(all)
+    offerslen = len(Offer.objects.all().filter(seller=request.user.manager))
     return render_to_response('lineup.html',
                               {'lineup': lineup, 'Strikers': strik, 'Midfielders': mid, 'Defenses': defn,
-                               'Goalkeepers': goalk, 'whole': all},
+                               'Goalkeepers': goalk, 'whole': all, 'offersbadge':offerslen},
                               context_instance=RequestContext(request))
 
 
@@ -258,13 +261,18 @@ def home(request):
 
     return render_to_response('home.html',
                               {'feed': feeds, 'club': club, 'hasjoin': join, 'isadmin': isAdmin, 'ranking': rank,
-                               'offers': offers},
+                               'offers': offers, 'offersbadge':len(offers)},
                               context_instance=RequestContext(request))
 
 
 @login_required
 def league(request):
-    return render_to_response('league.html', context_instance=RequestContext(request))
+    rnking = get_object_or_404(ranking, club=request.user.manager.club)
+    division = rnking.division
+    rankings = ranking.objects.filter(division=division).order_by('-punctuation')
+
+    offerslen = len(Offer.objects.all().filter(seller=request.user.manager))
+    return render_to_response('league.html', {'ranking': rankings, 'offersbadge':offerslen}, context_instance=RequestContext(request))
 
 
 @login_required
@@ -348,9 +356,11 @@ def computer_offers():
     free_agent = get_object_or_404(Manager, user=usr)
     for elem in players_onsale:
         if not elem.agent.user.username == 'libre':
-            rcv_offers = Offer.objects.filter(player=elem, buyer=free_agent).order_by('date')
+            rcv_offers = Offer.objects.filter(player=elem.player, buyer=free_agent).order_by('date')
             if len(rcv_offers) > 0:
-                if (datetime.datetime.now().day - rcv_offers[0].date.day) > 0:
+                diff = datetime.datetime.now().day - rcv_offers[0].date.day
+                print("dif para oferta computer ", diff)
+                if diff > 0:
                     seller = squad_club.objects.filter(player=elem.player)[0]
                     amnt = elem.player.value - elem.player.value * 0.05
                     Offer.objects.create(buyer=free_agent, seller=seller.club.manager, player=elem.player, amount=amnt,

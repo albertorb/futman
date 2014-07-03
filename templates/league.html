@@ -1,9 +1,28 @@
 {% extends 'master_in.html' %}
 {% block home %}
     <div class="row container center-block">
-        <div class="col-md-4">
+    <h3>Clasificacion de {{ ranking.0.division.league }}</h3>
+        <div class="col-md-6">
             <div class="table">
-
+                <table class="table table-hover table-bordered  ">
+                    <thead class="h5">
+                    <tr>
+                        <td>Posicion</td>
+                        <td>Equipo</td>
+                        <td>Puntos</td>
+                    </tr>
+                    </thead>
+                    <tbody class="">
+                    {% for elem in ranking %}
+                        <tr class=" {% ifequal elem.club request.user.manager.club %}warning {% endifequal %}">
+                            <td  class="{% if forloop.counter < 4 %} success {% elif forloop.counter > 4 and forloop.counter < 6 %}info {% elif forloop.counter > 17 %} danger {% endif %}">
+                                <span>{{ forloop.counter }}</span></td>
+                            <td><span>{{ elem.club }}</span></td>
+                            <td><span>{{ elem.punctuation }}</span></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
