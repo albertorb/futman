@@ -7,32 +7,28 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="fa fa-navicon text-white"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="/home/">Futman</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li {% if request.path == '/home/' %}class="active"{% endif %}><a href="/home">Home</a></li>
-                    <li {% if request.path == '/lineup/' %}class="active"{% endif %}><a href="/lineup">Lineup</a></li>
-                    <li {% if request.path == '/league/' %}class="active"{% endif %}><a href="/league">League</a></li>
-                    <li {% if request.path == '/valoration/' %}class="active"{% endif %}><a href="/valoration">Live
-                        points</a></li>
-                    <li {% if request.path == '/market/' %}class="active"{% endif %}><a href="/market">Market
+                    <li {% if request.path == '/home/' %}class="active"{% endif %}><a href="/home">Inicio</a></li>
+                    <li {% if request.path == '/lineup/' %}class="active"{% endif %}><a href="/lineup">Equipo</a></li>
+                    <li {% if request.path == '/league/' %}class="active"{% endif %}><a href="/league">Liga</a></li>
+                    <li {% if request.path == '/market/' %}class="active"{% endif %}><a href="/market">Transferencias
                     </a></li>
                 </ul>
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left visible-lg visible-md visible-sm" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Buscar...">
                     </div>
                     <button type="submit" class="btn btn-default fa fa-search "></button>
                 </form>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right visible-lg visible-md visible-sm">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request.user }} <b
                                 class="caret"></b></a>
@@ -42,10 +38,28 @@
                                     €
                                 </text>
                             </a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="/settings">Settings</a></li>
+                            <li><a href="#">Perfil</a></li>
+                            <li><a href="/settings">Configuracion</a></li>
                             <li class="divider"></li>
-                            <li><a href="/logout">Sign out</a></li>
+                            <li><a href="/logout">Cerrar sesion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right visible-xs">
+                    <li class="dropdown text-white">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request.user }} <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a><span class="fa fa-money text-white"> </span>
+                                <text class="{% if request.user.manager.club.budget > 0 %}text-green {% else %}text-red{% endif %}">{{ request.user.manager.club.budget }}
+                                    €
+                                </text>
+                            </a></li>
+                            <li><a href="#"><span class="text-white">Perfil</span></a></li>
+                            <li><a href="/settings"> <span class="text-white">Configuracion</span></a></li>
+                            <li class="divider text-white"></li>
+                            <li><a href="/logout"><span class="text-white">Cerrar sesion</span></a></li>
                         </ul>
                     </li>
                 </ul>

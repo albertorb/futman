@@ -19,8 +19,8 @@ def set_onsale(request):
         rankng = get_object_or_404(ranking, club=request.user.manager.club)
         lg = rankng.division.league
         mkt = get_object_or_404(Market, league=lg)
-        player_market.objects.create(player=ply, amount=request.POST['amount'],
-                                     date_joined=datetime.datetime.now(), market=mkt, agent=request.user.manager)
+        amt = float(request.POST['amount'])
+        player_market.objects.create(player=ply, amount=amt, date_joined=datetime.datetime.now(),agent=request.user.manager,market=mkt)
         return HttpResponseRedirect('/lineup')
     return HttpResponseRedirect('/panic')
 

@@ -47,7 +47,23 @@
             <div class="modal-content ">
                 <div class="form row container center-block">
                     <form class="form" action="/do_bid/" method="post">{% csrf_token %}
-                        <div class="col-xs-3 ">
+                        <div class="col-xs-3 visible-lg visible-md visible-sm">
+                            <div class="form-group padding-top-5">
+                                <label>Cantidad a pujar</label>
+                                <input class="form-control" type="number" placeholder="Introduzca cantidad"
+                                       name="amnt">
+                                <input id="playerhide" class="hidden" type="text" value=" " name="playerhide">
+                                <input id="sellerhide" class="hidden" type="text" value=" " name="sellerhide">
+                            </div>
+                            <div class="padding-bottom-5">
+
+                                <button type="submit" class="btn btn-sm btn-default text-green">Pujar</button>
+                                <text class="text-muted small">Pulsa esc para cancelar</text>
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form" action="/do_bid/" method="post">{% csrf_token %}
+                        <div class="col-xs-12 visible-xs ">
                             <div class="form-group padding-top-5">
                                 <label>Cantidad a pujar</label>
                                 <input class="form-control" type="number" placeholder="Introduzca cantidad"
