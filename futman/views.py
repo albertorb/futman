@@ -248,9 +248,10 @@ def home(request):
 
     offers = Offer.objects.all().filter(seller=request.user.manager)
     print(offers)
-
-    if len(offers) == 0:
+    len_offers = len(offers)
+    if len_offers == 0:
         offers = False
+
     fd = None
     feeds = []
     if rank:
@@ -261,7 +262,7 @@ def home(request):
 
     return render_to_response('home.html',
                               {'feed': feeds, 'club': club, 'hasjoin': join, 'isadmin': isAdmin, 'ranking': rank,
-                               'offers': offers, 'offersbadge':len(offers)},
+                               'offers': offers, 'offersbadge':len_offers},
                               context_instance=RequestContext(request))
 
 

@@ -3,80 +3,96 @@
 
 {% block home %}
 
-    <div class="container row">
+    <div class="container row center-block">
         <div class="page-header text-center">
             <h1>FUTMAN
                 <small>Virtual football manager</small>
             </h1>
         </div>
-        <div class="col-md-8 padding-top-5 padding-left-10">
-            <div class="jumbotron text-center">
-                <h1>Are you ready?</h1>
+        <div class="col-md-12 padding-top-5">
+            <div class="jumbotron  text-center">
+                <h1>Prepárate</h1>
 
-                <p>Discover a new way to play team management games</p>
+                <p>El manager de fútbol virtual definitivo</p>
 
-                <p><a class="btn btn-success btn-lg" role="button" href="signup">Register</a></p>
+                <p><a class="btn btn-success btn-lg" role="button" href="signup" data-toggle="modal"
+                      data-target="#registerModal">Registro</a>
+                    <a class="btn btn-success btn-lg" role="button" data-toggle="modal"
+                       data-target="#loginModal">Entrar</a></p>
             </div>
         </div>
-        <div class="col-md-4 padding-top-5">
+    </div>
+    </div>
 
-
-            <form class="panel panel-body" role="form" method="POST">
-                <div class="h1 text-success text-center panel-group panel-heading">Sign in</div>
-                {% csrf_token %}
-                {% if error %}
-                    <div class="alert alert-danger">Username and password do not match</div>
-                    <div class="form-group has-error">
-                        <input type="text" class="form-control input-lg" id="inputEmail" name="username"
-                               placeholder="Username"
-                               required="True" autofocus="True">
-                    </div>
-                    <div class="form-group has-error">
-
-                        <input type="password" class="form-control input-lg" id="inputPassword" name="password"
-                               placeholder="Password"
-                               required="True">
-
-                    </div>
-
-                    <div class="form-group padding-bottom-15">
-                        <div class="col-md-12 padding-left-5">
-                            <button type="submit" class="btn btn-block btn-success fa fa-sign-in fa-2x"></button>
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+         aria-hidden="true" id="loginModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form class=" panel panel-body" role="form" method="POST">
+                    <div class=" text-center panel-group panel-heading"><h1>Entrar</h1></div>
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger text-center">Sus credenciales no coinciden</div>
+                        <div class="form-group has-error">
+                            <input type="text" class="form-control input-lg" id="inputEmail" name="username"
+                                   placeholder="Username"
+                                   required="True" autofocus="True">
                         </div>
-                    </div>
-                {% else %}
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" id="inputEmail" name="username"
-                               placeholder="Username"
-                               required="True" autofocus="True">
-                    </div>
-                    <div class="form-group">
+                        <div class="form-group has-error">
 
-                        <input type="password" class="form-control input-lg" id="inputPassword" name="password"
-                               placeholder="Password"
-                               required="True">
+                            <input type="password" class="form-control input-lg" id="inputPassword" name="password"
+                                   placeholder="Password"
+                                   required="True">
 
-                    </div>
-
-                    <div class="form-group padding-bottom-15">
-                        <div class="col-md-12 padding-left-5">
-                            <button type="submit" class="btn btn-block btn-success fa fa-sign-in fa-2x"></button>
                         </div>
-                    </div>
 
-                {% endif %}
+                        <div class="form-group padding-bottom-15">
+                            <div class="col-md-12 padding-left-5">
+                                <button type="submit" class="btn btn-block btn-success fa fa-sign-in fa-2x"></button>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" id="inputEmail" name="username"
+                                   placeholder="Username"
+                                   required="True" autofocus="True">
+                        </div>
+                        <div class="form-group">
+
+                            <input type="password" class="form-control input-lg" id="inputPassword" name="password"
+                                   placeholder="Password"
+                                   required="True">
+
+                        </div>
+
+                        <div class="form-group padding-bottom-15">
+                            <div class="col-md-12 padding-left-5">
+                                <button type="submit" class="btn btn-block btn-success fa fa-sign-in fa-2x"></button>
+                            </div>
+                        </div>
+
+                    {% endif %}
 
 
-                <div class="text-center "><a href="/forgetpass" class=" text-info">Forgotten
-                    password?</a></div>
+                    <div class="text-center "><a href="/forgetpass" class=" text-info">Recuperar contraseña</a></div>
 
-            </form>
+                </form>
 
-
+            </div>
         </div>
+    </div>
 
+    <!-- Large modal -->
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true" id="registerModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+            </div>
+        </div>
     </div>
-    </div>
+
 
 {% endblock %}
 

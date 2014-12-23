@@ -1,32 +1,30 @@
 {% extends 'master.html' %}
 {% block home %}
-    <div class="row container padding-left-15">
-        <div class="page-header">
-            <h1>Sign up</h1>
-        </div>
+    <div class="row container center-block ">
 
-        <div class="panel-heading text-primary h2">user info</div>
-        <div class="col-md-8  panel panel-default">
-            <form role="form" method="post" class="panel-body">{% csrf_token %}
+        <div class="col-md-3  panel-default">
+            <form role="form" method="post" class="panel panel-body">{% csrf_token %}
+                <div class=" text-center panel-group panel-heading"><h1>Registro</h1></div>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                    <label class="hidden" for="username">Usuario</label>
+                    <input type="text" class="form-control input-lg" id="username" name="username"
+                           placeholder="Nombre de usuario">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                    <label class="hidden" for="email">Email</label>
+                    <input type="email" class="form-control input-lg" id="email" name="email" placeholder="Correo electrónico">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <label class="hidden" for="password">Contraseña</label>
+                    <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Contraseña">
                 </div>
                 <div class="form-group">
-                    <label for="image">Image</label>
+                    <label class="" for="image">Imagen</label>
                     <input type="file" id="image" name="image">
 
-                    <p class="help-block">Drop your image here</p>
+                    <p class="hidden help-block">Drop your image here</p>
                 </div>
-                <button type="submit" class="btn btn-default text-green">Enter</button>
+                <button type="submit" class="btn btn-success">Entrar</button>
             </form>
         </div>
     </div>
