@@ -1,6 +1,6 @@
 Cython==0.20.1
 Django==1.6.2
-Pillow==2.4.0
+Pillow==6.2.0
 PyMySQL==0.6.2
 Whoosh==2.6.0
 beautifulsoup4==4.3.2
